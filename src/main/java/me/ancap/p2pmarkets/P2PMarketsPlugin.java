@@ -1,14 +1,17 @@
 package me.ancap.p2pmarkets;
 
+import com.hypixel.hytale.server.core.command.system.CommandRegistry;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import me.ancap.p2pmarkets.market.MarketCommand;
+import me.ancap.p2pmarkets.market.MarketRegistry;
 
 /**
  * P2P Markets plugin entry point.
  * <p>
- * Bootstraps the bridge poller on enable, shuts it down on disable.
- * No ECS systems registered — the integration runs as a daemon thread
- * that watches a queue file and dispatches actions.
+ * Bootstraps the bridge poller, loads the marketplace registry, and registers
+ * the {@code /market} command. The bridge poller runs as a daemon thread that
+ * watches a queue file and dispatches actions.
  */
 public class P2PMarketsPlugin extends JavaPlugin {
 
@@ -20,6 +23,15 @@ public class P2PMarketsPlugin extends JavaPlugin {
     protected void setup() {
         System.out.println("[P2PMarkets] Plugin loading (v0.1.x)");
         P2PMarketsIntegration.start();
+
+        // Load existing market listings from disk
+        MarketRegistry.load();
+
+        // Register /market command
+        CommandRegistry commandRegistry = this.getCommandRegistry();
+        commandRegistry.registerCommand(new MarketCommand());
+        System.out.println("[P2PMarkets] /market command registered, "
+                + MarketRegistry.size() + " listings loaded");
     }
 
     // Hytale's JavaPlugin lifecycle doesn't currently expose a shutdown hook

@@ -1,0 +1,65 @@
+$C = "../Common.ui";
+
+$C.@PageOverlay {}
+
+$C.@Container {
+  Anchor: (Width: 900, Height: 640);
+
+  #Title {
+    Group {
+      $C.@Title {
+        @Text = "Marketplace";
+      }
+    }
+  }
+
+  #Content {
+    LayoutMode: Top;
+
+    // Header row: count + hint
+    Group #Header {
+      LayoutMode: Left;
+      Anchor: (Height: 36, Bottom: 8);
+
+      Label #HeaderCount {
+        Text: "Listings: 0";
+        Anchor: (Width: 200);
+        Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center);
+      }
+
+      Group { FlexWeight: 1; }
+
+      Label #HeaderHint {
+        Text: "Use  /market buy <id>  to purchase";
+        Anchor: (Width: 320);
+        Style: (FontSize: 12, TextColor: #96a9be, VerticalAlignment: Center);
+      }
+    }
+
+    // Column headers
+    Label #ColHeader {
+      Text: " id         item                    qty       price     seller            listed";
+      Anchor: (Height: 22);
+      Background: #1a2633;
+      Style: (FontSize: 13, TextColor: #4a9eff, RenderBold: true);
+    }
+
+    // Scrollable list region — rows appended dynamically by MarketBrowsePage.build
+    Scroll #ListingsScroll {
+      FlexWeight: 1;
+      Anchor: (Top: 4);
+
+      Group #ListingsList {
+        LayoutMode: Top;
+      }
+    }
+
+    // Shown when there are no active listings
+    Label #EmptyState {
+      Text: "No active listings. Use  /market sell <itemId> <qty> <price>  to create one.";
+      Anchor: (Height: 80);
+      Visible: false;
+      Style: (FontSize: 14, TextColor: #96a9be, HorizontalAlignment: Center, VerticalAlignment: Center);
+    }
+  }
+}
