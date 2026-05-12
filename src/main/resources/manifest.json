@@ -1,0 +1,18 @@
+{
+  "Group": "me.ancap",
+  "Name": "P2P Markets",
+  "Version": "0.1.0",
+  "Description": "Anonymous peer-to-peer token economy + DAO governance bridge (DarkFi-backed). Public API for other mods to issue payouts and register custom action handlers.",
+  "Authors": [
+    {
+      "Name": "Ancap"
+    }
+  ],
+  "Website": "",
+  "ServerVersion": "2026.03.26-89796e57b",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "me.ancap.p2pmarkets.P2PMarketsPlugin",
+  "IncludesAssetPack": false
+}
